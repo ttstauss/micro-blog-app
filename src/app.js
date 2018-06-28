@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
@@ -8,18 +8,39 @@ import { startFetchPosts } from './actions/posts'
 import { login, logout } from './actions/auth'
 import { firebase } from './firebase/firebase'
 
+import CSSBaseline from '@material-ui/core/CssBaseline'
+import 'typeface-roboto'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
+
+const theme = createMuiTheme({
+  typography: {
+    htmlFontSize: 10,
+    fontSize: 16
+  },
+  spacing: {
+    small: '1.2rem',
+    medium: '1.6rem',
+    large: '3.2rem',
+    xLarge: '4.8rem',
+    desktopBreakpoing: '45rem'
+  }
+})
+
 const store = configureStore()
 
-const providerWrapper = (
-  <Provider store={store}>
-    <AppRouter />
-  </Provider>
+const wrapper = (
+  <MuiThemeProvider theme={theme}>
+    <CSSBaseline />
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  </MuiThemeProvider>
 )
 
 let hasRendered = false
 const renderApp = () => {
   if (!hasRendered) {
-    ReactDOM.render(providerWrapper, document.querySelector('#root'))
+    ReactDOM.render(wrapper, document.querySelector('#root'))
     hasRendered = true
   }
 }

@@ -4,6 +4,20 @@ import PostForm from './PostForm'
 import DeletePostModal from './DeletePostModal'
 import { startEditPost, startDeletePost } from '../actions/posts'
 
+import { Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
+const styles = theme => ({
+  'content-container': {
+    margin: '0 auto',
+    maxWidth: '80rem',
+    padding: `0 ${theme.spacing.medium}`
+  },
+  button: {
+    margin: `0 0 ${theme.spacing.medium} 0`
+  }
+})
+
 export class EditPostPage extends Component {
   state = {
     modalIsOpen: false,
@@ -30,14 +44,21 @@ export class EditPostPage extends Component {
     this.setState(() => ({ modalIsOpen: false }))
   }
   render() {
+    const { classes } = this.props
     return (
-      <div>
+      <div className={classes['content-container']}>
         <div>
           <PostForm
             post={this.props.post}
             onSubmit={this.onSubmit}
           />
-          <button onClick={this.onOpenModal}>Delete Post</button>
+          <Button
+            className={classes.button}
+            variant="contained"
+            onClick={this.onOpenModal}
+          >
+            Delete Post
+          </Button>
         </div>
         <DeletePostModal
           modalIsOpen={this.state.modalIsOpen}
@@ -58,4 +79,4 @@ const mapDispatchToProps = dispatch => ({
   startDeletePost: id => dispatch(startDeletePost(id))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditPostPage)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditPostPage))

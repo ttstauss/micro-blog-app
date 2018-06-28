@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Router, Route, Switch } from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
 import LoginPage from '../components/LoginPage'
@@ -13,7 +13,7 @@ export const history = createHistory()
 
 export const AppRouter = () => (
   <Router history={history}>
-    <div>
+    <Fragment>
       <Switch>
         <PublicRoute path="/" component={LoginPage} exact />
         <PrivateRoute path="/dashboard" component={DashboardPage} />
@@ -21,7 +21,7 @@ export const AppRouter = () => (
         <PrivateRoute path="/edit/:id" component={EditPostPage} />
         <Route component={NotFoundPage} />
       </Switch>
-    </div>
+    </Fragment>
   </Router>
 )
 

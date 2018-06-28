@@ -1,19 +1,57 @@
 import React from 'react'
-import Modal from 'react-modal'
 
-export const DeletePostModal = props => (
+import { Modal, Typography, Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
+const styles = theme => ({
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    left: '50%',
+    padding: theme.spacing.unit * 4,
+    position: 'absolute',
+    textAlign: 'center',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: theme.spacing.unit * 50,
+  },
+  'modal__title': {
+    padding: '0',
+    margin: `0 0 ${theme.spacing.medium} 0`
+  },
+  'modal__subheading': {
+    margin: `0 0 ${theme.spacing.medium} 0`
+  },
+  'button-group': {
+    display: 'flex',
+    justifyContent: 'space-between'
+  }
+})
+
+export const DeletePostModal = ({ modalIsOpen, handleOnCancel, handleOnDelete, classes }) => (
   <Modal
-    isOpen={props.modalIsOpen}
+    className={classes.modal}
+    open={modalIsOpen}
   >
-    <h3>Are you sure?</h3>
-    <p>You will not be able to recover the posts.</p>
-    <div>
-      <button onClick={props.handleOnCancel}>Cancel</button>
-      <button onClick={props.handleOnDelete}>Yes, delete it!</button>
+    <div className={classes.paper}>
+      <Typography
+        className={classes['modal__title']}
+        variant="title"
+      >
+        Are you sure?
+      </Typography>
+      <Typography
+        className={classes['modal__subheading']}
+        variant="subheading"
+      >
+        You will not be able to recover this posts.
+      </Typography>
+      <div className={classes['button-group']}>
+        <Button variant="contained" onClick={handleOnCancel}>Cancel</Button>
+        <Button variant="contained" color="secondary" onClick={handleOnDelete}>Yes, delete it!</Button>
+      </div>
     </div>
   </Modal>
 )
 
-Modal.setAppElement('#root')
-
-export default DeletePostModal
+export default withStyles(styles)(DeletePostModal)

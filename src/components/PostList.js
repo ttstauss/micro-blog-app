@@ -3,16 +3,31 @@ import { connect } from 'react-redux'
 import PostListItem from './PostListItem'
 import selectPosts from '../selectors/posts'
 
-export const BlogList = props => {
+import { Card, CardContent, Typography } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
+const styles = theme => ({
+  'list-item__body': {
+    display: 'flex',
+    justifyContent: 'center',
+    '&:last-child': {
+      paddingBottom: theme.spacing.medium
+    }
+  }
+})
+
+export const BlogList = ({ classes, posts }) => {
   return (
     <div>
       {
-        props.posts.length === 0 ? (
-          <div>
-            <span>No posts</span>
-          </div>
+        posts.length === 0 ? (
+          <Card>
+            <CardContent className={classes['list-item__body']}>
+              <Typography>You haven't created any posts yet!</Typography>
+            </CardContent>
+          </Card>
         ) : (
-          props.posts.map(post => (
+          posts.map(post => (
             <PostListItem key={post.title} {...post} />
           ))
         )
@@ -25,4 +40,4 @@ const mapStateToProps = state => ({
   posts: selectPosts(state.posts, state.filters)
 })
 
-export default connect(mapStateToProps)(BlogList)
+export default connect(mapStateToProps)(withStyles(styles)(BlogList))

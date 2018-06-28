@@ -1,6 +1,22 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 
+import { TextField, Button, Typography } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
+const styles = theme => ({
+  form: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  'form__text-field': {
+      margin: `0 0 ${theme.spacing.medium} 0`
+  },
+  'form__button': {
+    margin: `0 0 ${theme.spacing.medium} 0`
+  }
+})
+
 export class PostForm extends Component {
   state = {
     title: this.props.post ? this.props.post.title : '',
@@ -30,25 +46,49 @@ export class PostForm extends Component {
     }
   }
   render() {
+    const { classes } = this.props
     return (
-      <form onSubmit={this.onSubmit}>
-        {this.state.error && <p>{this.state.error}</p>}
-        <input
-          type="text"
+      <form className={classes.form} onSubmit={this.onSubmit}>
+        {
+          this.state.error
+          &&
+          <Typography
+            variant="caption"
+            align="center"
+            color="secondary"
+            gutterBottom
+          >
+            {this.state.error}
+          </Typography>
+        }
+        <TextField
+          className={classes['form__text-field']}
           placeholder="Post Title"
           autoFocus
           value={this.state.title}
           onChange={this.onTitleChange}
         />
-        <textarea
+        <TextField
+          className={classes['form__text-field']}
+          multiline
+          rows={10}
           placeholder="Add the content for your post"
           value={this.state.body}
           onChange={this.onBodyChange}
         />
-        <button>Save Post</button>
+        <div>
+          <Button
+            className={classes['form__button']}
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
+            Save Post
+          </Button>
+        </div>
       </form>
     )
   }
 }
 
-export default PostForm
+export default withStyles(styles)(PostForm)

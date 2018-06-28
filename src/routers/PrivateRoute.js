@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 import Header from '../components/Header'
@@ -10,10 +10,10 @@ export const PrivateRoute = ({
 }) => (
   <Route {...rest} component={props => (
     isAuthenticated ? (
-      <div>
+      <Fragment>
         <Header />
         <Component {...props} />
-      </div>
+      </Fragment>
     ) : (
       <Redirect to="/" />
     )
