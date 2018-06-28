@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import DeletePostButton from './DeletePostButton'
 import PostPreview from './PostPreview'
+import { startDeletePost } from '../actions/posts'
 import moment from 'moment'
 
 import { TextField, Button, Typography } from '@material-ui/core'
@@ -23,7 +26,9 @@ export class PostForm extends Component {
     title: this.props.post ? this.props.post.title : '',
     body: this.props.post ? this.props.post.body : '',
     createdAt: this.props.post ? this.props.post.createdAt : moment().valueOf(),
-    error: ''
+    error: '',
+    modalIsOpen: false,
+    confirmDelete: false
   }
   onTitleChange = e => {
     const title = e.target.value
@@ -45,6 +50,22 @@ export class PostForm extends Component {
         createdAt: this.state.createdAt
       })
     }
+  }
+  onOpenModal = () => {
+    this.setState(() => ({
+      modalIsOpen: true
+    }))
+  }
+  handleOnDelete = () => {
+    this.setState(() => ({
+      modalIsOpen: false,
+      confirmDelete: true
+    }))
+    this.props.startDeletePost(this.props.post.id)
+    this.props.history.push('/dashboard')
+  }
+  handleOnCancel = () => {
+    this.setState(() => ({ modalIsOpen: false }))
   }
   render() {
     const { classes } = this.props
@@ -90,10 +111,20 @@ export class PostForm extends Component {
             </Button>
           </div>
         </form>
+        <DeletePostButton
+          onClick={this.onOpenModal}
+          modalIsOpen={this.state.modalIsOpen}
+          handleOnDelete={this.handleOnDelete}
+          handleOnCancel={this.handleOnCancel}
+        />
         <PostPreview state={this.state} />
       </Fragment>
     )
   }
 }
 
-export default withStyles(styles)(PostForm)
+const mapDispatchToProps = dispatch => ({
+  startDeletePost: id => dispatch(startDeletePost(id))
+})
+
+export default connect(undefined, mapDispatchToProps)(withStyles(styles)(PostForm))

@@ -2,10 +2,9 @@ import React, { Component }from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PostForm from './PostForm'
-import DeletePostModal from './DeletePostModal'
-import { startEditPost, startDeletePost } from '../actions/posts'
+import { startEditPost } from '../actions/posts'
 
-import { Button, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -25,36 +24,13 @@ const styles = theme => ({
     '&:hover': {
       color: 'rgba(63, 81, 181, 1)'
     }
-  },
-  button: {
-    margin: `0 0 ${theme.spacing.medium} 0`
   }
 })
 
 export class EditPostPage extends Component {
-  state = {
-    modalIsOpen: false,
-    confirmDelete: false
-  }
   onSubmit = updates => {
     this.props.startEditPost(this.props.post.id, updates)
     this.props.history.push('/dashboard')
-  }
-  onOpenModal = () => {
-    this.setState(() => ({
-      modalIsOpen: true
-    }))
-  }
-  handleOnDelete = () => {
-    this.setState(()=> ({
-      modalIsOpen: false,
-      confirmDelete: true
-    }))
-    this.props.startDeletePost(this.props.post.id)
-    this.props.history.push('/dashboard')
-  }
-  handleOnCancel = () => {
-    this.setState(() => ({ modalIsOpen: false }))
   }
   render() {
     const { classes } = this.props
@@ -75,21 +51,9 @@ export class EditPostPage extends Component {
           <PostForm
             post={this.props.post}
             onSubmit={this.onSubmit}
+            history={this.props.history}
           />
-          <Button
-            className={classes.button}
-            size="medium"
-            variant="contained"
-            onClick={this.onOpenModal}
-          >
-            Delete Post
-          </Button>
         </div>
-        <DeletePostModal
-          modalIsOpen={this.state.modalIsOpen}
-          handleOnDelete={this.handleOnDelete}
-          handleOnCancel={this.handleOnCancel}
-        />
       </div>
     )
   }
@@ -100,8 +64,7 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  startEditPost: (id, updates) => dispatch(startEditPost(id, updates)),
-  startDeletePost: id => dispatch(startDeletePost(id))
+  startEditPost: (id, updates) => dispatch(startEditPost(id, updates))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditPostPage))
