@@ -95,20 +95,3 @@ export const startFetchPosts = () => {
       })
     }
 }
-
-// FETCH SINGLE POST
-export const fetchPost = post => ({
-  type: 'FETCH_POST',
-  post
-})
-
-export const startFetchPost = (id = '') => {
-  return dispatch => {
-    return database.ref(`posts/${id}`)
-      .once('value')
-      .then(snapshot => {
-        const post = snapshot.val()
-        dispatch(fetchPost(post))
-      })
-  }
-}

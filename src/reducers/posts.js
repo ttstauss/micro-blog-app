@@ -22,8 +22,6 @@ export default (state = postsReducerDefaultState, action) => {
       return state.filter(({ id }) => id !== action.id)
     case 'FETCH_POSTS':
       return action.posts
-    case 'FETCH_POST':
-      return action.post
     default:
       return state
   }
