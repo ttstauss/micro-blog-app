@@ -63,7 +63,10 @@ export const deletePost = (id = '') => ({
 export const startDeletePost = (id = '') => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid
-    return database.ref(`users/${uid}/posts/${id}`).remove().then(() => {
+    const removePost = {}
+    removePost[`posts/${id}`] = null
+    removePost[`users/${uid}/posts/${id}`] = null
+    return database.ref().update(removePost).then(() => {
       dispatch(deletePost(id))
     })
   }

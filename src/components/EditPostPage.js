@@ -57,7 +57,6 @@ export class EditPostPage extends Component {
     this.setState(() => ({ modalIsOpen: false }))
   }
   render() {
-    console.log(this.props)
     const { classes } = this.props
     return (
       <div className={classes['content-container']}>
