@@ -15,9 +15,18 @@ export const startAddPost = (postData = {}) => {
       createdAt = 0
     } = postData
     const post = { title, body, createdAt }
-    database.ref(`users/${uid}/posts`).push(post).then(ref => {
+    const postRef = database.ref('posts/')
+    const newPostKey = postRef.push().key
+    let newPost = {}
+    newPost[`posts/${newPostKey}`] = {
+      ...post
+    }
+    newPost[`users/${uid}/posts/${newPostKey}`] = {
+      ...post
+    }
+    return database.ref().update(newPost).then(() => {
       dispatch(addPost({
-        id: ref.key,
+        id: newPostKey,
         ...post
       }))
     })
@@ -34,7 +43,12 @@ export const editPost = (id, updates) => ({
 export const startEditPost = (id, updates) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid
-    return database.ref(`users/${uid}/posts/${id}`).update(updates).then(() => {
+    const updatePost = {}
+    for(let prop in updates) {
+      updatePost[`posts/${id}/${prop}`] = updates[prop]
+      updatePost[`users/${uid}/posts/${id}/${prop}`] = updates[prop]
+    }
+    return database.ref().update(updatePost).then(() => {
       dispatch(editPost(id, updates))
     })
   }

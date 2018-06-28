@@ -1,10 +1,11 @@
 import React, { Component }from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import PostForm from './PostForm'
 import DeletePostModal from './DeletePostModal'
 import { startEditPost, startDeletePost } from '../actions/posts'
 
-import { Button } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -12,6 +13,18 @@ const styles = theme => ({
     margin: '0 auto',
     maxWidth: '80rem',
     padding: `0 ${theme.spacing.medium}`
+  },
+  link: {
+    transition: 'color .3s ease',
+    '&:hover': {
+      color: 'rgba(63, 81, 181, 1)'
+    }
+  },
+  'link__text': {
+    transition: 'color .3s ease',
+    '&:hover': {
+      color: 'rgba(63, 81, 181, 1)'
+    }
   },
   button: {
     margin: `0 0 ${theme.spacing.medium} 0`
@@ -44,10 +57,22 @@ export class EditPostPage extends Component {
     this.setState(() => ({ modalIsOpen: false }))
   }
   render() {
+    console.log(this.props)
     const { classes } = this.props
     return (
       <div className={classes['content-container']}>
         <div>
+          <Link
+            className={classes.link}
+            to={`/read/${this.props.match.params.id}`}
+          >
+            <Typography
+              className={classes['link__text']}
+              gutterBottom
+            >
+              {`Post readable at ${window.location.origin}/read/${this.props.match.params.id}`}
+            </Typography>
+          </Link>
           <PostForm
             post={this.props.post}
             onSubmit={this.onSubmit}

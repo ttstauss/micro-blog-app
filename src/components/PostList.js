@@ -28,7 +28,7 @@ export const BlogList = ({ classes, posts }) => {
           </Card>
         ) : (
           posts.map(post => (
-            <PostListItem key={post.title} {...post} />
+            <PostListItem key={post.id} {...post} />
           ))
         )
       }

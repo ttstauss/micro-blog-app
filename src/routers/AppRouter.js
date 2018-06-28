@@ -8,6 +8,7 @@ import EditPostPage from '../components/EditPostPage'
 import NotFoundPage from '../components/NotFoundPage'
 import PublicRoute from './PublicRoute'
 import PrivateRoute from './PrivateRoute'
+import PostPage from '../components/PostPage'
 
 export const history = createHistory()
 
