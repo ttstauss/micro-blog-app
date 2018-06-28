@@ -21,7 +21,11 @@ const styles = theme => ({
     borderRadius: '3px',
     padding: `${theme.spacing.large} ${theme.spacing.medium}`,
     textAlign: 'center',
-    minWidth: '25rem'
+    width: theme.spacing.unit * 50,
+    maxWidth: '25rem',
+    [theme.breakpoints.up('340')]: {
+      maxWidth: '32rem',
+    }
   },
   'box-layout__title': {
     padding: '0',

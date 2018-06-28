@@ -14,6 +14,7 @@ const styles = theme => ({
     top: '50%',
     transform: 'translate(-50%, -50%)',
     width: theme.spacing.unit * 50,
+    maxWidth: '25rem'
   },
   'modal__title': {
     padding: '0',
@@ -22,9 +23,12 @@ const styles = theme => ({
   'modal__subheading': {
     margin: `0 0 ${theme.spacing.medium} 0`
   },
-  'button-group': {
+  'modal__button-group': {
     display: 'flex',
-    justifyContent: 'space-between'
+    flexDirection: 'column'
+  },
+  'modal__button': {
+    marginBottom: theme.spacing.small
   }
 })
 
@@ -46,9 +50,23 @@ export const DeletePostModal = ({ modalIsOpen, handleOnCancel, handleOnDelete, c
       >
         You will not be able to recover this posts.
       </Typography>
-      <div className={classes['button-group']}>
-        <Button variant="contained" onClick={handleOnCancel}>Cancel</Button>
-        <Button variant="contained" color="secondary" onClick={handleOnDelete}>Yes, delete it!</Button>
+      <div className={classes['modal__button-group']}>
+        <Button
+          className={classes['modal__button']}
+          variant="contained"
+          size="large"
+          onClick={handleOnCancel}
+        >
+          Cancel
+        </Button>
+        <Button
+          variant="contained"
+          size="large"
+          color="secondary"
+          onClick={handleOnDelete}
+        >
+          Yes, delete it!
+        </Button>
       </div>
     </div>
   </Modal>
