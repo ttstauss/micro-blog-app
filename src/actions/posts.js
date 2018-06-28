@@ -75,7 +75,7 @@ export const startDeletePost = (id = '') => {
 // FETCH POSTS
 export const fetchPosts = posts => ({
   type: 'FETCH_POSTS',
-  posts: posts
+  posts
 })
 
 export const startFetchPosts = () => {
@@ -94,4 +94,21 @@ export const startFetchPosts = () => {
         dispatch(fetchPosts(posts))
       })
     }
+}
+
+// FETCH SINGLE POST
+export const fetchPost = post => ({
+  type: 'FETCH_POST',
+  post
+})
+
+export const startFetchPost = (id = '') => {
+  return dispatch => {
+    return database.ref(`posts/${id}`)
+      .once('value')
+      .then(snapshot => {
+        const post = snapshot.val()
+        dispatch(fetchPost(post))
+      })
+  }
 }
