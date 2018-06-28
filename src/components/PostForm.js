@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import PostPreview from './PostPreview'
 import moment from 'moment'
 
 import { TextField, Button, Typography } from '@material-ui/core'
@@ -10,7 +11,7 @@ const styles = theme => ({
     flexDirection: 'column'
   },
   'form__text-field': {
-      margin: `0 0 ${theme.spacing.medium} 0`
+    margin: `0 0 ${theme.spacing.medium} 0`
   },
   'form__button': {
     margin: `0 0 ${theme.spacing.medium} 0`
@@ -48,46 +49,49 @@ export class PostForm extends Component {
   render() {
     const { classes } = this.props
     return (
-      <form className={classes.form} onSubmit={this.onSubmit}>
-        {
-          this.state.error
-          &&
-          <Typography
-            variant="caption"
-            align="center"
-            color="secondary"
-            gutterBottom
-          >
-            {this.state.error}
-          </Typography>
-        }
-        <TextField
-          className={classes['form__text-field']}
-          placeholder="Post Title"
-          autoFocus
-          value={this.state.title}
-          onChange={this.onTitleChange}
-        />
-        <TextField
-          className={classes['form__text-field']}
-          multiline
-          rows={25}
-          placeholder="Add the content for your post"
-          value={this.state.body}
-          onChange={this.onBodyChange}
-        />
-        <div>
-          <Button
-            className={classes['form__button']}
-            size="medium"
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            Save Post
-          </Button>
-        </div>
-      </form>
+      <Fragment>
+        <form className={classes.form} onSubmit={this.onSubmit}>
+          {
+            this.state.error
+            &&
+            <Typography
+              variant="caption"
+              align="center"
+              color="secondary"
+              gutterBottom
+            >
+              {this.state.error}
+            </Typography>
+          }
+          <TextField
+            className={classes['form__text-field']}
+            placeholder="Post Title"
+            autoFocus
+            value={this.state.title}
+            onChange={this.onTitleChange}
+          />
+          <TextField
+            className={classes['form__text-field']}
+            multiline
+            rows={15}
+            placeholder="Add the content for your post"
+            value={this.state.body}
+            onChange={this.onBodyChange}
+          />
+          <div>
+            <Button
+              className={classes['form__button']}
+              size="medium"
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Save Post
+            </Button>
+          </div>
+        </form>
+        <PostPreview state={this.state} />
+      </Fragment>
     )
   }
 }
