@@ -71,7 +71,7 @@ export class PostForm extends Component {
         <TextField
           className={classes['form__text-field']}
           multiline
-          rows={10}
+          rows={25}
           placeholder="Add the content for your post"
           value={this.state.body}
           onChange={this.onBodyChange}
@@ -79,6 +79,7 @@ export class PostForm extends Component {
         <div>
           <Button
             className={classes['form__button']}
+            size="medium"
             type="submit"
             variant="contained"
             color="primary"

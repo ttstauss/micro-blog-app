@@ -16,7 +16,7 @@ export const AddPostButton = ({ classes }) => {
   return (
     <div className={classes['button-container']}>
       <Link to="/create">
-        <Button variant="contained" color="primary">
+        <Button variant="contained" size="medium" color="primary">
           Add Post
         </Button>
       </Link>

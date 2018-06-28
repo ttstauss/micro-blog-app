@@ -53,6 +53,7 @@ export const NotFoundPage = ({ classes }) => (
       <CardActions style={{justifyContent: 'center'}}>
         <Link to="/">
           <Button
+            size="medium"
             variant="contained"
             color="primary"
           >

@@ -78,6 +78,7 @@ export class EditPostPage extends Component {
           />
           <Button
             className={classes.button}
+            size="medium"
             variant="contained"
             onClick={this.onOpenModal}
           >

@@ -42,7 +42,11 @@ export const Header = ({ startLogout, classes }) => {
               MY BLOG
             </Typography>
           </Link>
-          <Button onClick={startLogout} className={classes['header__link']}>
+          <Button
+            size="medium"
+            onClick={startLogout}
+            className={classes['header__link']}
+          >
             Logout
           </Button>
         </div>

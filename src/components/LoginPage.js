@@ -62,7 +62,7 @@ export const LoginPage = ({ startGoogleLogin, classes }) => {
           <Button
             className={classes['button--google']}
             variant="contained"
-            size="large"
+            size="medium"
             onClick={startGoogleLogin}
           >
             <FontAwesomeIcon

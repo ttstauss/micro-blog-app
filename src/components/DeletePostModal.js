@@ -54,14 +54,14 @@ export const DeletePostModal = ({ modalIsOpen, handleOnCancel, handleOnDelete, c
         <Button
           className={classes['modal__button']}
           variant="contained"
-          size="large"
+          size="medium"
           onClick={handleOnCancel}
         >
           Cancel
         </Button>
         <Button
           variant="contained"
-          size="large"
+          size="medium"
           color="secondary"
           onClick={handleOnDelete}
         >

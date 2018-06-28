@@ -1,5 +1,6 @@
 import React from 'react'
 import keyIndex from 'react-key-index'
+import moment from 'moment'
 
 import { withStyles } from '@material-ui/core/styles'
 import { Typography, Card, CardContent } from '@material-ui/core'
@@ -11,9 +12,9 @@ const styles = theme => ({
     padding: `0 ${theme.spacing.medium}`
   },
   post: {
-    margin: `${theme.spacing.medium} ${theme.spacing.medium}`
+    margin: `${theme.spacing.medium} 0`
   },
-  'post__title': {
+  'post__caption': {
     marginBottom: `${theme.spacing.large}`
   },
   'post__body': {
@@ -28,7 +29,8 @@ export const Post = ({ classes, body, title, createdAt }) => {
     <div className={classes['content-container']}>
       <Card className={classes.post}>
         <CardContent>
-          <Typography className={classes['post__title']} variant="title" component="h1">{title}</Typography>
+          <Typography variant="title" component="h1">{title}</Typography>
+          <Typography className={classes['post__caption']} variant="caption">Last updated {moment(createdAt).format('MMMM Do, YYYY')}</Typography>
           {bodyArr.map(arr => (
             <Typography className={classes['post__body']} key={arr.id}>{arr.value}</Typography>
           ))}
