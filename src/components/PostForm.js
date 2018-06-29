@@ -41,7 +41,7 @@ export class PostForm extends Component {
   onSubmit = e => {
     e.preventDefault()
     if (!this.state.title || !this.state.body) {
-      this.setState(() => ({ error: 'Please provide title and body '}))
+      this.setState(() => ({ error: 'Please provide title and body'}))
     } else {
       this.setState(() => ({ error: '' }))
       this.props.onSubmit({

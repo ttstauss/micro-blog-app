@@ -48,7 +48,7 @@ export const DeletePostModal = ({ modalIsOpen, handleOnCancel, handleOnDelete, c
         className={classes['modal__subheading']}
         variant="subheading"
       >
-        You will not be able to recover this posts.
+        You will not be able to recover this post.
       </Typography>
       <div className={classes['modal__button-group']}>
         <Button

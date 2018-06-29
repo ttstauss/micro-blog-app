@@ -5,6 +5,43 @@ export const login = uid => ({
   uid
 })
 
+export const startRegisterUser = (email, password) => {
+  return () => {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        firebase.auth().currentUser.sendEmailVerification()
+          .then(() => {
+            console.log('email verification sent')
+          }).catch(error => {
+            console.log('unable to send email', error.message)
+          })
+      }).catch(error => {
+        console.log('register error', error)
+        if (error.code === 'auth/email-already-in-use') {
+          firebase.auth().signInWithPopup(googleAuthProvider)
+            .then(() => {
+              const credential = firebase.auth.EmailAuthProvider.credential(email, password)
+              return firebase.auth().currentUser.linkAndRetrieveDataWithCredential(credential)
+                .then(() => {
+                  console.log('account linking success')
+                }). catch(error => {
+                  console.log('account linking error', error.message)
+                })
+            })
+        }
+      })
+  }
+}
+
+export const startEmailLogin = (email, password) => {
+  return () => {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+      .catch(error => {
+        console.log('signIn error', error.message)
+      })
+  }
+}
+
 export const startGoogleLogin = () => {
   return () => {
     return firebase.auth().signInWithPopup(googleAuthProvider)
