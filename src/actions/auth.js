@@ -16,15 +16,15 @@ export const startRegisterUser = (email, password) => {
             console.log('unable to send email', error.message)
           })
       }).catch(error => {
-        console.log('register error', error)
+        console.log('register error', error.message)
         if (error.code === 'auth/email-already-in-use') {
           firebase.auth().signInWithPopup(googleAuthProvider)
             .then(() => {
               const credential = firebase.auth.EmailAuthProvider.credential(email, password)
-              return firebase.auth().currentUser.linkAndRetrieveDataWithCredential(credential)
+              firebase.auth().currentUser.linkAndRetrieveDataWithCredential(credential)
                 .then(() => {
                   console.log('account linking success')
-                }). catch(error => {
+                }).catch(error => {
                   console.log('account linking error', error.message)
                 })
             })
@@ -38,6 +38,17 @@ export const startEmailLogin = (email, password) => {
     return firebase.auth().signInWithEmailAndPassword(email, password)
       .catch(error => {
         console.log('signIn error', error.message)
+      })
+  }
+}
+
+export const sendResetLink = email => {
+  return () => {
+    return firebase.auth().sendPasswordResetEmail(email)
+      .then(() => {
+        console.log('reset link sent')
+      }).catch(error => {
+        console.log('unable to send reset link', error.message)
       })
   }
 }

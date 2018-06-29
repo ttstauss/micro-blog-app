@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { startGoogleLogin, startRegisterUser, startEmailLogin } from '../actions/auth'
+import { startGoogleLogin, startRegisterUser, startEmailLogin, sendResetLink } from '../actions/auth'
 import Button from '@material-ui/core/Button'
 
 import { Card, CardContent, Typography, CardActions, TextField } from '@material-ui/core'
@@ -37,23 +37,41 @@ const styles = theme => ({
   },
   textField: {
     width: '100%',
-    marginBottom: `${theme.spacing.medium}`
+    marginBottom: theme.spacing.medium
   },
   button: {
     width: '100%'
   },
   'button--email': {
-    marginBottom: `${theme.spacing.medium}`
+    marginBottom: theme.spacing.medium
   },
   'button--google': {
     background: 'rgb(219, 50, 54)',
     color: 'white',
+    marginBottom: theme.spacing.medium,
     '&:hover': {
       background: 'rgba(219, 50, 54, 0.8)'
     }
   },
   'icon-social': {
     marginRight: theme.spacing.small
+  },
+  link: {
+    transition: 'color .3s ease',
+    marginBottom: theme.spacing.medium,
+    '&:hover': {
+      color: 'rgba(63, 81, 181, 1)',
+      cursor: 'pointer'
+    }
+  },
+  'link__text': {
+    transition: 'color .3s ease',
+    '&:hover': {
+      color: 'rgba(63, 81, 181, 1)'
+    }
+  },
+  caption: {
+    marginBottom: theme.spacing.medium
   }
 })
 
@@ -61,7 +79,9 @@ export class LoginPage extends Component {
   state = {
     email: '',
     password: '',
-    typeOfSubmit: undefined
+    typeOfSubmit: undefined,
+    showReset: false,
+    resetSent: false
   }
   onEmailChange = e => {
     const email = e.target.value
@@ -91,16 +111,32 @@ export class LoginPage extends Component {
       if (this.state.typeOfSubmit === 'login') {
         this.props.startEmailLogin(this.state.email, this.state.password)
           .catch(error => {
-            console.log(error)
+            console.log(error.message)
           })
       }
       if (this.state.typeOfSubmit === 'register') {
         this.props.startRegisterUser(this.state.email, this.state.password)
           .catch(error => {
-            console.log(error)
+            console.log(error.message)
           })
       }
     }
+  }
+  handleGetEmail = () => {
+    this.setState(prevState => ({
+      reset: !prevState.showReset
+    }))
+  }
+  sendReset = () => {
+    this.props.sendResetLink(this.state.email)
+      .then(() => {
+        this.setState(() => ({
+          reset: false,
+          resetSent: true
+        }))
+      }).catch(error => {
+        console.log(error.message)
+      })
   }
   render() {
     const { startGoogleLogin, classes} = this.props
@@ -167,8 +203,50 @@ export class LoginPage extends Component {
                 />
                 Login with Google
               </Button>
-
             </form>
+            <a
+              className={classes.link}
+              type="button"
+              onClick={this.handleGetEmail}
+            >
+              <Typography
+                className={classes['link__text']}
+              >
+                Forgot password?
+              </Typography>
+            </a>
+            {this.state.reset &&
+              <form>
+                <Typography
+                  variant="caption"
+                  className={classes.caption}
+                >
+                  Please provide the email address you would like a password reset link sent to.
+                </Typography>
+                <TextField
+                  className={classes.textField}
+                  label="Email"
+                  onChange={this.onEmailChange}
+                />
+                <Button
+                  className={[classes.button, classes['button--email']].join(' ')}
+                  variant="contained"
+                  size="light"
+                  size="medium"
+                  onClick={this.sendReset}
+                >
+                  Send Reset
+                </Button>
+              </form>
+            }
+            {this.state.resetSent &&
+              <Typography
+                variant="caption"
+                className={classes.caption}
+              >
+                A reset link has been sent to your email.
+              </Typography>
+            }
           </CardActions>
         </Card>
       </div>
@@ -179,7 +257,8 @@ export class LoginPage extends Component {
 const mapDispatchToProps = dispatch => ({
   startRegisterUser: (email, password) => dispatch(startRegisterUser(email, password)),
   startEmailLogin: (email, password) => dispatch(startEmailLogin(email, password)),
-  startGoogleLogin: () => dispatch(startGoogleLogin())
+  startGoogleLogin: () => dispatch(startGoogleLogin()),
+  sendResetLink: email => dispatch(sendResetLink(email))
 })
 
 export default connect(undefined, mapDispatchToProps)(withStyles(styles)(LoginPage))
