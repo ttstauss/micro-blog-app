@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { startGoogleLogin, startRegisterUser, startEmailLogin, sendResetLink } from '../actions/auth'
 import Button from '@material-ui/core/Button'
 
-import { Card, CardContent, Typography, CardActions, TextField } from '@material-ui/core'
+import { Card, CardContent, Typography, CardActions, TextField, Collapse, Fade } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -20,7 +20,7 @@ const styles = theme => ({
   },
   'box-layout__box': {
     borderRadius: '3px',
-    padding: `${theme.spacing.large} ${theme.spacing.medium}`,
+    padding: `${theme.spacing.large} ${theme.spacing.medium} 0 ${theme.spacing.medium}`,
     textAlign: 'center',
     width: theme.spacing.unit * 50,
     maxWidth: '25rem',
@@ -124,14 +124,15 @@ export class LoginPage extends Component {
   }
   handleGetEmail = () => {
     this.setState(prevState => ({
-      reset: !prevState.showReset
+      showReset: !prevState.showReset,
+      resetSent: false
     }))
   }
   sendReset = () => {
     this.props.sendResetLink(this.state.email)
       .then(() => {
         this.setState(() => ({
-          reset: false,
+          showReset: false,
           resetSent: true
         }))
       }).catch(error => {
@@ -141,115 +142,126 @@ export class LoginPage extends Component {
   render() {
     const { startGoogleLogin, classes} = this.props
     return (
-      <div className={classes['box-layout']}>
-        <Card className={classes['box-layout__box']}>
-          <CardContent style={{padding: '0'}}>
-            <Typography className={classes['box-layout__title']} variant="headline" component="h1">
-              MY MICRO BLOG
-            </Typography>
-            <Typography className={classes['box-layout__subheading']} variant="subheading">
-              Blog to your hearts content
-            </Typography>
-          </CardContent>
-          <CardActions style={{justifyContent: 'center', flexDirection: 'column'}}>
-            <form>
-              <TextField
-                className={classes.textField}
-                label="Email"
-                onChange={this.onEmailChange}
-              />
-              <TextField
-                className={classes.textField}
-                type="password"
-                label="Password"
-                onChange={this.onPasswordChange}
-              />
-              <Button
-                className={[classes.button, classes['button--email']].join(' ')}
-                variant="contained"
-                color="primary"
-                size="medium"
-                onClick={this.onLogin}
-              >
-                <FontAwesomeIcon
-                  className={classes['icon-social']}
-                  icon={faAt}
-                />
-                Login with Email
-              </Button>
-              <Button
-                className={[classes.button, classes['button--email']].join(' ')}
-                variant="contained"
-                size="medium"
-                onClick={this.onRegister}
-              >
-                <FontAwesomeIcon
-                  className={classes['icon-social']}
-                  icon={faAt}
-                />
-                Register with Email
-              </Button>
-              <Typography gutterBottom>- OR -</Typography>
-              <Button
-                className={[classes['button--google'], classes['button']].join(' ')}
-                variant="contained"
-                size="medium"
-                type="button"
-                onClick={startGoogleLogin}
-              >
-                <FontAwesomeIcon
-                  className={classes['icon-social']}
-                  icon={faGoogle}
-                />
-                Login with Google
-              </Button>
-            </form>
-            <a
-              className={classes.link}
-              type="button"
-              onClick={this.handleGetEmail}
-            >
-              <Typography
-                className={classes['link__text']}
-              >
-                Forgot password?
+      <Fade in={true}>
+        <div className={classes['box-layout']}>
+          <Card className={classes['box-layout__box']}>
+            <CardContent style={{padding: '0'}}>
+              <Typography className={classes['box-layout__title']} variant="headline" component="h1">
+                MY MICRO BLOG
               </Typography>
-            </a>
-            {this.state.reset &&
+              <Typography className={classes['box-layout__subheading']} variant="subheading">
+                Blog to your hearts content
+              </Typography>
+            </CardContent>
+            <CardActions style={{justifyContent: 'center', flexDirection: 'column'}}>
               <form>
-                <Typography
-                  variant="caption"
-                  className={classes.caption}
-                >
-                  Please provide the email address you would like a password reset link sent to.
-                </Typography>
                 <TextField
                   className={classes.textField}
                   label="Email"
                   onChange={this.onEmailChange}
                 />
+                <TextField
+                  className={classes.textField}
+                  type="password"
+                  label="Password"
+                  onChange={this.onPasswordChange}
+                />
                 <Button
                   className={[classes.button, classes['button--email']].join(' ')}
                   variant="contained"
-                  size="light"
+                  color="primary"
                   size="medium"
-                  onClick={this.sendReset}
+                  onClick={this.onLogin}
                 >
-                  Send Reset
+                  <FontAwesomeIcon
+                    className={classes['icon-social']}
+                    icon={faAt}
+                  />
+                  Login with Email
+                </Button>
+                <Button
+                  className={[classes.button, classes['button--email']].join(' ')}
+                  variant="contained"
+                  size="medium"
+                  onClick={this.onRegister}
+                >
+                  <FontAwesomeIcon
+                    className={classes['icon-social']}
+                    icon={faAt}
+                  />
+                  Register with Email
+                </Button>
+                <Typography gutterBottom>- OR -</Typography>
+                <Button
+                  className={[classes['button--google'], classes['button']].join(' ')}
+                  variant="contained"
+                  size="medium"
+                  type="button"
+                  onClick={startGoogleLogin}
+                >
+                  <FontAwesomeIcon
+                    className={classes['icon-social']}
+                    icon={faGoogle}
+                  />
+                  Login with Google
                 </Button>
               </form>
-            }
-            {this.state.resetSent &&
-              <Typography
-                variant="caption"
-                className={classes.caption}
+              <a
+                className={classes.link}
+                type="button"
+                onClick={this.handleGetEmail}
               >
-                A reset link has been sent to your email.
-              </Typography>
-            }
-          </CardActions>
-        </Card>
-      </div>
+                <Typography
+                  className={classes['link__text']}
+                >
+                  Forgot password?
+                </Typography>
+              </a>
+              <Collapse
+                in={this.state.showReset}
+              >
+                <form>
+                  <Typography
+                    variant="caption"
+                    className={classes.caption}
+                  >
+                    Please provide the email address you would like a password reset link sent to.
+                  </Typography>
+                  <TextField
+                    className={classes.textField}
+                    label="Email"
+                    onChange={this.onEmailChange}
+                  />
+                  <Button
+                    className={[classes.button, classes['button--email']].join(' ')}
+                    variant="contained"
+                    size="light"
+                    size="medium"
+                    onClick={this.sendReset}
+                  >
+                    Send Reset
+                  </Button>
+                </form>
+              </Collapse>
+              <Collapse
+                in={this.state.resetSent}
+              >
+                <Fade
+                  in={this.state.resetSent}
+                {...(this.state.resetSent ? { timeout: 1000 } : {})}
+                >
+                  <Typography
+                    variant="caption"
+                    className={classes.caption}
+                  >
+                    A reset link has been sent to your email.
+                  </Typography>
+                </Fade>
+              </Collapse>
+            </CardActions>
+          </Card>
+        </div>
+      </Fade>
     )
   }
 }

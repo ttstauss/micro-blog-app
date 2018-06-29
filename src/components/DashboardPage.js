@@ -4,6 +4,7 @@ import AddPostButton from './AddPostButton'
 import PostList from './PostList'
 
 import { withStyles } from '@material-ui/core/styles'
+import { Fade } from '@material-ui/core'
 
 const styles = theme => ({
   'content-container': {
@@ -24,13 +25,15 @@ const styles = theme => ({
 
 export const DashboardPage = ({ classes }) => {
   return (
-    <div className={classes['content-container']}>
-      <div className={classes['actions-container']}>
-        <PostListFilters />
-        <AddPostButton />
+    <Fade in={true}>
+      <div className={classes['content-container']}>
+        <div className={classes['actions-container']}>
+          <PostListFilters />
+          <AddPostButton />
+        </div>
+        <PostList />
       </div>
-      <PostList />
-    </div>
+    </Fade>
   )
 }
 

@@ -3,10 +3,9 @@ import Remarkable from 'remarkable'
 import moment from 'moment'
 
 import { withStyles } from '@material-ui/core/styles'
-import { Typography, Card, CardContent } from '@material-ui/core'
+import { Typography, Card, CardContent, Fade } from '@material-ui/core'
 
 const styles = theme => {
-  console.log(theme)
   return ({
   'content-container': {
     margin: '0 auto',
@@ -35,15 +34,17 @@ export class Post extends Component {
   render() {
     const { classes, title, createdAt } = this.props
     return (
-      <div className={classes['content-container']}>
-        <Card className={classes.post}>
-          <CardContent>
-            <Typography variant="title">{title}</Typography>
-            <Typography className={classes['post__caption']} variant="caption">Last updated {moment(createdAt).format('MMMM Do, YYYY')}</Typography>
-            <div className={classes['post__body']} dangerouslySetInnerHTML={this.getRawMarkup()}></div>
-          </CardContent>
-        </Card>
-      </div>
+      <Fade in={true}>
+        <div className={classes['content-container']}>
+          <Card className={classes.post}>
+            <CardContent>
+              <Typography variant="title">{title}</Typography>
+              <Typography className={classes['post__caption']} variant="caption">Last updated {moment(createdAt).format('MMMM Do, YYYY')}</Typography>
+              <div className={classes['post__body']} dangerouslySetInnerHTML={this.getRawMarkup()}></div>
+            </CardContent>
+          </Card>
+        </div>
+      </Fade>
     )
   }
 }

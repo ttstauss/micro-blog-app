@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PostListItem from './PostListItem'
 import selectPosts from '../selectors/posts'
 
-import { Card, CardContent, Typography } from '@material-ui/core'
+import { Card, CardContent, Typography, Fade } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -13,6 +13,9 @@ const styles = theme => ({
     '&:last-child': {
       paddingBottom: theme.spacing.medium
     }
+  },
+  message: {
+    color: theme.palette.grey['600']
   }
 })
 
@@ -23,12 +26,12 @@ export const BlogList = ({ classes, posts }) => {
         posts.length === 0 ? (
           <Card>
             <CardContent className={classes['list-item__body']}>
-              <Typography>You haven't created any posts yet!</Typography>
+              <Typography className={classes.message} variant="title">Couldn't find any posts</Typography>
             </CardContent>
           </Card>
         ) : (
-          posts.map(post => (
-            <PostListItem key={post.id} {...post} />
+          posts.map((post, index) => (
+            <PostListItem key={post.id} num={index} {...post} />
           ))
         )
       }

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import DeletePostModal from './DeletePostModal'
+import DeletePostDialog from './DeletePostDialog'
 
 import { Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
@@ -22,8 +22,8 @@ export const DeletePostButton = props => {
       >
         Delete Post
       </Button>
-      <DeletePostModal
-        modalIsOpen={props.modalIsOpen}
+      <DeletePostDialog
+        dialogIsOpen={props.dialogIsOpen}
         handleOnDelete={props.handleOnDelete}
         handleOnCancel={props.handleOnCancel}
       />

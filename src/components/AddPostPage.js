@@ -4,7 +4,7 @@ import { startAddPost } from '../actions/posts'
 import PostForm from './PostForm'
 
 import { withStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import { Typography, Fade } from '@material-ui/core'
 
 const styles = theme => ({
   'content-container': {
@@ -34,22 +34,24 @@ export class AddPostPage extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div className={classes['content-container']}>
-        <a
-          className={classes.link}
-          href={'https://jonschlinkert.github.io/remarkable/demo/'}
-          target={'_blank'}
-          rel={'noopener'}
-        >
-          <Typography
-            className={classes['link__text']}
-            gutterBottom
+      <Fade in={true}>
+        <div className={classes['content-container']}>
+          <a
+            className={classes.link}
+            href={'https://jonschlinkert.github.io/remarkable/demo/'}
+            target={'_blank'}
+            rel={'noopener'}
           >
-            Use Remarkable syntax to style your post.
-          </Typography>
-        </a>
-        <PostForm onSubmit={this.onSubmit} />
-      </div>
+            <Typography
+              className={classes['link__text']}
+              gutterBottom
+            >
+              Use Remarkable syntax to style your post.
+            </Typography>
+          </a>
+          <PostForm onSubmit={this.onSubmit} />
+        </div>
+      </Fade>
     )
   }
 }

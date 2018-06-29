@@ -5,7 +5,7 @@ import PostPreview from './PostPreview'
 import { startDeletePost } from '../actions/posts'
 import moment from 'moment'
 
-import { TextField, Button, Typography } from '@material-ui/core'
+import { TextField, Button, Typography, Grow } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -27,7 +27,7 @@ export class PostForm extends Component {
     body: this.props.post ? this.props.post.body : '',
     createdAt: this.props.post ? this.props.post.createdAt : moment().valueOf(),
     error: '',
-    modalIsOpen: false,
+    dialogIsOpen: false,
     confirmDelete: false
   }
   onTitleChange = e => {
@@ -51,39 +51,27 @@ export class PostForm extends Component {
       })
     }
   }
-  onOpenModal = () => {
+  onOpenDialog = () => {
     this.setState(() => ({
-      modalIsOpen: true
+      dialogIsOpen: true
     }))
   }
   handleOnDelete = () => {
     this.setState(() => ({
-      modalIsOpen: false,
+      dialogIsOpen: false,
       confirmDelete: true
     }))
     this.props.startDeletePost(this.props.post.id)
     this.props.history.push('/dashboard')
   }
   handleOnCancel = () => {
-    this.setState(() => ({ modalIsOpen: false }))
+    this.setState(() => ({ dialogIsOpen: false }))
   }
   render() {
-    const { classes } = this.props
+    const { classes, history } = this.props
     return (
       <Fragment>
         <form className={classes.form} onSubmit={this.onSubmit}>
-          {
-            this.state.error
-            &&
-            <Typography
-              variant="caption"
-              align="center"
-              color="secondary"
-              gutterBottom
-            >
-              {this.state.error}
-            </Typography>
-          }
           <TextField
             className={classes['form__text-field']}
             placeholder="Post Title"
@@ -100,6 +88,19 @@ export class PostForm extends Component {
             onChange={this.onBodyChange}
           />
           <div>
+            {
+              this.state.error &&
+              <Grow in={true}>
+                <Typography
+                  variant="caption"
+                  align="center"
+                  color="secondary"
+                  gutterBottom
+                >
+                  {this.state.error}
+                </Typography>
+              </Grow>
+            }
             <Button
               className={classes['form__button']}
               size="medium"
@@ -111,12 +112,14 @@ export class PostForm extends Component {
             </Button>
           </div>
         </form>
-        <DeletePostButton
-          onClick={this.onOpenModal}
-          modalIsOpen={this.state.modalIsOpen}
-          handleOnDelete={this.handleOnDelete}
-          handleOnCancel={this.handleOnCancel}
-        />
+        {history &&
+          <DeletePostButton
+            onClick={this.onOpenDialog}
+            dialogIsOpen={this.state.dialogIsOpen}
+            handleOnDelete={this.handleOnDelete}
+            handleOnCancel={this.handleOnCancel}
+          />
+        }
         <PostPreview state={this.state} />
       </Fragment>
     )

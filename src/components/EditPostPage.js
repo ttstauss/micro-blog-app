@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import PostForm from './PostForm'
 import { startEditPost } from '../actions/posts'
 
-import { Typography } from '@material-ui/core'
+import { Typography, Fade } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -35,26 +35,28 @@ export class EditPostPage extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div className={classes['content-container']}>
-        <div>
-          <Link
-            className={classes.link}
-            to={`/read/${this.props.match.params.id}`}
-          >
-            <Typography
-              className={classes['link__text']}
-              gutterBottom
+      <Fade in={true}>
+        <div className={classes['content-container']}>
+          <div>
+            <Link
+              className={classes.link}
+              to={`/read/${this.props.match.params.id}`}
             >
-              {`Post readable at ${window.location.origin}/read/${this.props.match.params.id}`}
-            </Typography>
-          </Link>
-          <PostForm
-            post={this.props.post}
-            onSubmit={this.onSubmit}
-            history={this.props.history}
-          />
+              <Typography
+                className={classes['link__text']}
+                gutterBottom
+              >
+                {`Post readable at ${window.location.origin}/read/${this.props.match.params.id}`}
+              </Typography>
+            </Link>
+            <PostForm
+              post={this.props.post}
+              onSubmit={this.onSubmit}
+              history={this.props.history}
+            />
+          </div>
         </div>
-      </div>
+      </Fade>
     )
   }
 }

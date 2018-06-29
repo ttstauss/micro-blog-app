@@ -1,58 +1,52 @@
 import React from 'react'
 
-import { Modal, Typography, Button } from '@material-ui/core'
+import { Dialog, Typography, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
-  paper: {
+  dialog__paper: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    left: '50%',
     padding: theme.spacing.unit * 4,
-    position: 'absolute',
-    textAlign: 'center',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: theme.spacing.unit * 50,
-    maxWidth: '25rem'
+    textAlign: 'center'
   },
-  'modal__title': {
+  'dialog__title': {
     padding: '0',
     margin: `0 0 ${theme.spacing.medium} 0`
   },
-  'modal__subheading': {
+  'dialog__subheading': {
     margin: `0 0 ${theme.spacing.medium} 0`
   },
-  'modal__button-group': {
+  'dialog__button-group': {
     display: 'flex',
     flexDirection: 'column'
   },
-  'modal__button': {
+  'dialog__button': {
     marginBottom: theme.spacing.small
   }
 })
 
-export const DeletePostModal = ({ modalIsOpen, handleOnCancel, handleOnDelete, classes }) => (
-  <Modal
-    className={classes.modal}
-    open={modalIsOpen}
+export const DeletePostDialog = ({ dialogIsOpen, handleOnCancel, handleOnDelete, classes }) => (
+  <Dialog
+    open={dialogIsOpen}
+    onClose={handleOnCancel}
   >
-    <div className={classes.paper}>
+    <div className={classes['dialog__paper']}>
       <Typography
-        className={classes['modal__title']}
+        className={classes['dialog__title']}
         variant="title"
       >
         Are you sure?
       </Typography>
       <Typography
-        className={classes['modal__subheading']}
+        className={classes['dialog__subheading']}
         variant="subheading"
       >
         You will not be able to recover this post.
       </Typography>
-      <div className={classes['modal__button-group']}>
+      <div className={classes['dialog__button-group']}>
         <Button
-          className={classes['modal__button']}
+          className={classes['dialog__button']}
           variant="contained"
           size="medium"
           onClick={handleOnCancel}
@@ -69,7 +63,7 @@ export const DeletePostModal = ({ modalIsOpen, handleOnCancel, handleOnDelete, c
         </Button>
       </div>
     </div>
-  </Modal>
+  </Dialog>
 )
 
-export default withStyles(styles)(DeletePostModal)
+export default withStyles(styles)(DeletePostDialog)
