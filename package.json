@@ -4,8 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "node server/server.js",
+    "build:prod": "webpack -p --env production",
     "build:dev": "webpack",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "heroku-postbuild": "yarn run build:prod"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
@@ -21,10 +24,12 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.11",
+    "express": "^4.16.3",
     "file-loader": "^1.1.11",
     "firebase": "^5.1.0",
     "history": "^4.7.2",
     "lodash": "^4.17.10",
+    "mini-css-extract-plugin": "^0.4.1",
     "moment": "^2.22.2",
     "react": "^16.4.1",
     "react-addons-css-transition-group": "^15.6.2",
