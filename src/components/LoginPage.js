@@ -175,10 +175,10 @@ export class LoginPage extends Component {
           className={classes.login}
         >
           <Typography className={classes['login__title']} variant="headline" component="h1">
-            MY MICRO BLOG
+            MICRO BLOG
           </Typography>
           <Typography className={classes['login__subheading']} variant="subheading">
-            Blog to your hearts content
+            Blog your heart out
           </Typography>
           <TextField
             className={classes['login__textField']}
