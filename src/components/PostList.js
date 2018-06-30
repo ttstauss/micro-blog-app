@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PostListItem from './PostListItem'
 import selectPosts from '../selectors/posts'
+import FlipMove from 'react-flip-move'
 
 import { Card, CardContent, Typography, Fade } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
@@ -30,9 +31,11 @@ export const BlogList = ({ classes, posts }) => {
             </CardContent>
           </Card>
         ) : (
-          posts.map((post, index) => (
-            <PostListItem key={post.id} num={index} {...post} />
-          ))
+          <FlipMove>
+            {posts.map((post, index) => (
+              <PostListItem key={post.id} num={index} {...post} />
+            ))}
+          </FlipMove>
         )
       }
     </div>
