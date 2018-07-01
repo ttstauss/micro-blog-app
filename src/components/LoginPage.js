@@ -106,19 +106,54 @@ export class LoginPage extends Component {
   }
   onSubmit = () => {
     if (!this.state.email || !this.state.password) {
-      this.setState(() => ({ error: 'Please provide an email and password' }))
+      this.setState(() => ({
+        emailError: !this.state.email && 'Please provide an email',
+        passwordError: !this.state.password && 'Please provide a password'
+      }))
     } else {
       this.setState(() => ({ error: '' }))
       if (this.state.typeOfSubmit === 'login') {
         this.props.startEmailLogin(this.state.email, this.state.password)
           .catch(error => {
-            console.log(error.message)
+            // console.log('signIn error: ', error.message)
+            if (error.code === 'auth/invalid-email') {
+              this.setState(() => ({
+                emailError: 'Please provide a valid email address',
+                passwordError: undefined
+              }))
+            }
+            if (error.code === 'auth/user-not-found') {
+              this.setState(() => ({
+                userOrPasswordError: 'Email or password is incorrect',
+                emailError: undefined,
+                passwordError: undefined
+              }))
+            }
+            if (error.code === 'auth/wrong-password') {
+              this.setState(() => ({
+                userOrPasswordError: 'Email or password is incorrect',
+                emailError: undefined,
+                passwordError: undefined
+              }))
+            }
           })
       }
       if (this.state.typeOfSubmit === 'register') {
         this.props.startRegisterUser(this.state.email, this.state.password)
           .catch(error => {
-            console.log(error.message)
+            // console.log('register error:', error)
+            if (error.code === 'auth/invalid-email') {
+              this.setState(() => ({
+                emailError: 'Please provide a valid email address',
+                passwordError: undefined
+              }))
+            }
+            if (error.code === 'auth/weak-password') {
+              this.setState(() => ({
+                passwordError: 'Password should be at least 6 characters',
+                emailError: undefined,
+              }))
+            }
           })
       }
     }
@@ -180,16 +215,31 @@ export class LoginPage extends Component {
           <Typography className={classes['login__subheading']} variant="subheading">
             Blog your heart out
           </Typography>
+          <Collapse
+            in={!!this.state.userOrPasswordError}
+          >
+            <Typography
+              variant="caption"
+              className={classes.caption}
+              color="secondary"
+            >
+              {this.state.userOrPasswordError}
+            </Typography>
+          </Collapse>
           <TextField
+            error={!!this.state.emailError}
             className={classes['login__textField']}
             label="Email"
             onChange={this.onEmailChange}
+            helperText={this.state.emailError}
           />
           <TextField
+            error={!!this.state.passwordError}
             className={classes['login__textField']}
             type="password"
             label="Password"
             onChange={this.onPasswordChange}
+            helperText={this.state.passwordError}
           />
           <Button
             className={[classes.button, classes['button--email']].join(' ')}
@@ -203,7 +253,7 @@ export class LoginPage extends Component {
               icon={faAt}
             />
             Login with Email
-                </Button>
+          </Button>
           <Button
             className={[classes.button, classes['button--email']].join(' ')}
             variant="contained"
@@ -283,7 +333,7 @@ export class LoginPage extends Component {
                 variant="caption"
                 className={classes.caption}
               >
-                A reset link has been sent to your email.
+                A reset link has been sent to your email if it exists.
               </Typography>
             </Fade>
           </Collapse>

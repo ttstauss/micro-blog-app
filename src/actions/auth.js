@@ -11,24 +11,24 @@ export const startRegisterUser = (email, password) => {
       .then(() => {
         firebase.auth().currentUser.sendEmailVerification()
           .then(() => {
-            console.log('email verification sent')
+            // console.log('email verification sent')
           }).catch(error => {
-            console.log('unable to send email', error.message)
+            // console.log('unable to send email:', error.message)
           })
       }).catch(error => {
-        console.log('register error', error.message)
         if (error.code === 'auth/email-already-in-use') {
           firebase.auth().signInWithPopup(googleAuthProvider)
             .then(() => {
               const credential = firebase.auth.EmailAuthProvider.credential(email, password)
               firebase.auth().currentUser.linkAndRetrieveDataWithCredential(credential)
                 .then(() => {
-                  console.log('account linking success')
+                  // console.log('account linking success')
                 }).catch(error => {
-                  console.log('account linking error', error.message)
+                  // console.log('account linking error:', error.message)
                 })
             })
         }
+        throw error
       })
   }
 }
@@ -36,9 +36,6 @@ export const startRegisterUser = (email, password) => {
 export const startEmailLogin = (email, password) => {
   return () => {
     return firebase.auth().signInWithEmailAndPassword(email, password)
-      .catch(error => {
-        console.log('signIn error', error.message)
-      })
   }
 }
 
@@ -46,9 +43,9 @@ export const sendResetLink = email => {
   return () => {
     return firebase.auth().sendPasswordResetEmail(email)
       .then(() => {
-        console.log('reset link sent')
+        // console.log('reset link sent')
       }).catch(error => {
-        console.log('unable to send reset link', error.message)
+        // console.log('unable to send reset link:', error.message)
       })
   }
 }
