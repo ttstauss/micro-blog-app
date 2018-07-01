@@ -5,6 +5,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({ path: '.env.development' })
+} else if (process.env.NODE_ENV === 'test') {
+  require('dotenv').config({ path: '.env.test ' })
 }
 
 module.exports = (env) => {
@@ -24,16 +26,7 @@ module.exports = (env) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['env', 'react'],
-              plugins: [
-                'transform-class-properties',
-                'transform-object-rest-spread'
-              ]
-            }
-          }
+          loader: 'babel-loader'
         }, {
           test: /\.css$/,
           use: [
