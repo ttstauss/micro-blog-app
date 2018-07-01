@@ -39,7 +39,7 @@ export const Header = ({ startLogout, classes }) => {
         <div className={classes['header__content']}>
           <Link to="/dashboard" className={classes['header__title']}>
             <Typography variant="title" color="inherit">
-              MY MICRO BLOG
+              MICRO BLOG
             </Typography>
           </Link>
           <Button

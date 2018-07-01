@@ -15,8 +15,8 @@ const styles = {
 export const AddPostButton = ({ classes }) => {
   return (
     <div className={classes['button-container']}>
-      <Link to="/create">
-        <Button variant="contained" size="medium" color="primary">
+      <Link to="/create" style={{textDecoration: 'none'}}>
+        <Button type="button" variant="contained" size="medium" color="primary">
           Add Post
         </Button>
       </Link>

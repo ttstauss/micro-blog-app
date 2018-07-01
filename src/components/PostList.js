@@ -23,6 +23,9 @@ const styles = theme => ({
 export const BlogList = ({ classes, posts }) => {
   return (
     <div>
+      <Typography variant="title" gutterBottom>
+        Posts
+      </Typography>
       {
         posts.length === 0 ? (
           <Card>
