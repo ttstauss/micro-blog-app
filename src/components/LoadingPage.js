@@ -2,16 +2,7 @@ import React from 'react'
 
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
-
-const styles = {
-  loader: {
-    alignItems: 'center',
-    display: 'flex',
-    height: '100vh',
-    justifyContent: 'center',
-    width: '100vw'
-  }
-}
+import loadingPageStyle from '../assets/loadingPageStyle'
 
 export const LoadingPage = ({ classes }) => {
   return (
@@ -21,4 +12,4 @@ export const LoadingPage = ({ classes }) => {
   )
 }
 
-export default withStyles(styles)(LoadingPage)
+export default withStyles(loadingPageStyle)(LoadingPage)

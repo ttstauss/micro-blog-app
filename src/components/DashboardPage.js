@@ -5,23 +5,7 @@ import PostList from './PostList'
 
 import { withStyles } from '@material-ui/core/styles'
 import { Fade } from '@material-ui/core'
-
-const styles = theme => ({
-  'content-container': {
-    margin: '0 auto',
-    maxWidth: '80rem',
-    padding: `0 ${theme.spacing.medium}`
-  },
-  'actions-container': {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    }
-  }
-})
+import dashboardPageStyle from '../assets/dashboardPageStyle'
 
 export const DashboardPage = ({ classes }) => {
   return (
@@ -37,4 +21,4 @@ export const DashboardPage = ({ classes }) => {
   )
 }
 
-export default withStyles(styles)(DashboardPage)
+export default withStyles(dashboardPageStyle)(DashboardPage)

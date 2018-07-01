@@ -2,29 +2,7 @@ import React from 'react'
 
 import { Dialog, Typography, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-
-const styles = theme => ({
-  dialog__paper: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-    textAlign: 'center'
-  },
-  'dialog__title': {
-    padding: '0',
-    margin: `0 0 ${theme.spacing.medium} 0`
-  },
-  'dialog__subheading': {
-    margin: `0 0 ${theme.spacing.medium} 0`
-  },
-  'dialog__button-group': {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  'dialog__button': {
-    marginBottom: theme.spacing.small
-  }
-})
+import deletePostDialogStyle from '../assets/deletePostDialogStyle'
 
 export const DeletePostDialog = ({ dialogIsOpen, handleOnCancel, handleOnDelete, classes }) => (
   <Dialog
@@ -66,4 +44,4 @@ export const DeletePostDialog = ({ dialogIsOpen, handleOnCancel, handleOnDelete,
   </Dialog>
 )
 
-export default withStyles(styles)(DeletePostDialog)
+export default withStyles(deletePostDialogStyle)(DeletePostDialog)

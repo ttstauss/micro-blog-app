@@ -5,26 +5,7 @@ import PostForm from './PostForm'
 
 import { withStyles } from '@material-ui/core/styles'
 import { Typography, Fade } from '@material-ui/core'
-
-const styles = theme => ({
-  'content-container': {
-    margin: '0 auto',
-    maxWidth: '80rem',
-    padding: `0 ${theme.spacing.medium}`
-  },
-  link: {
-    transition: 'color .3s ease',
-    '&:hover': {
-      color: 'rgba(63, 81, 181, 1)'
-    }
-  },
-  'link__text': {
-    transition: 'color .3s ease',
-    '&:hover': {
-      color: 'rgba(63, 81, 181, 1)'
-    }
-  }
-})
+import addPostPageStyle from '../assets/addPostPageStyle'
 
 export class AddPostPage extends Component {
   onSubmit = post => {
@@ -60,4 +41,4 @@ const mapDispatchToProps = dispatch => ({
   startAddPost: post => dispatch(startAddPost(post))
 })
 
-export default connect(undefined, mapDispatchToProps)(withStyles(styles)(AddPostPage))
+export default connect(undefined, mapDispatchToProps)(withStyles(addPostPageStyle)(AddPostPage))

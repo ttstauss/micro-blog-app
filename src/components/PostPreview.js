@@ -4,21 +4,7 @@ import moment from 'moment'
 
 import { Card, CardContent, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-
-const styles = theme => ({
-  post: {
-      margin: `${theme.spacing.medium} 0`
-  },
-  'post__caption': {
-    marginBottom: `${theme.spacing.large}`
-  },
-  'post__body': {
-    ...theme.typography,
-    '& img': {
-      maxWidth: '100%'
-    }
-  }
-})
+import postPreviewStyle from '../assets/postPreviewStyle'
 
 export class PreviewPost extends Component {
   getRawMarkup() {
@@ -45,4 +31,4 @@ export class PreviewPost extends Component {
   }
 }
 
-export default withStyles(styles)(PreviewPost)
+export default withStyles(postPreviewStyle)(PreviewPost)

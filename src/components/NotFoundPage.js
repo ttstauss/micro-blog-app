@@ -3,33 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Card, CardContent, Typography, CardActions, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-
-const styles = theme => ({
-  'box-layout': {
-    alignItems: 'center',
-    background: 'linear-gradient(to bottom right, #3f51b5, #606fc7)',
-    display: 'flex',
-    height: '100vh',
-    justifyContent: 'center',
-    width: '100vw',
-  },
-  'box-layout__box': {
-    borderRadius: '3px',
-    padding: `${theme.spacing.large} ${theme.spacing.medium}`,
-    textAlign: 'center',
-    maxWidth: '25rem',
-    [theme.breakpoints.up('440')]: {
-      maxWidth: '40rem',
-    }
-  },
-  'box-layout__title': {
-    padding: '0',
-    margin: `0 0 ${theme.spacing.medium} 0`
-  },
-  'box-layout__subheading': {
-    margin: `0 0 ${theme.spacing.medium} 0`
-  }
-})
+import notFoundPageStyle from '../assets/notFoundPageStyle'
 
 export const NotFoundPage = ({ classes }) => (
   <div className={classes['box-layout']}>
@@ -65,4 +39,4 @@ export const NotFoundPage = ({ classes }) => (
   </div>
 )
 
-export default withStyles(styles)(NotFoundPage)
+export default withStyles(notFoundPageStyle)(NotFoundPage)

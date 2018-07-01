@@ -7,34 +7,7 @@ import Post from './Post'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core';
-
-const styles = theme => ({
-  loader: {
-    alignItems: 'center',
-    display: 'flex',
-    height: '100vh',
-    justifyContent: 'center',
-    width: '100vw'
-  },
-  'content-container': {
-    margin: '0 auto',
-    maxWidth: '80rem',
-    padding: `0 ${theme.spacing.medium}`
-  },
-  link: {
-    transition: 'color .3s ease',
-    '&:hover': {
-      color: 'rgba(63, 81, 181, 1)'
-    }
-  },
-  'link__text': {
-    marginTop: `${theme.spacing.medium}`,
-    transition: 'color .3s ease',
-    '&:hover': {
-      color: 'rgba(63, 81, 181, 1)'
-    }
-  }
-})
+import postPageStyle from '../assets/postPageStyle'
 
 export class PostPage extends Component {
   state = {}
@@ -90,4 +63,4 @@ const mapStateToProps = state => ({
   state
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(PostPage))
+export default connect(mapStateToProps)(withStyles(postPageStyle)(PostPage))

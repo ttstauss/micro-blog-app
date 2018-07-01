@@ -4,24 +4,7 @@ import { setTextFilter, sortByDate, sortByTitle } from '../actions/filters'
 
 import { Input, Select, MenuItem } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-
-const styles = theme => ({
-  'input-group': {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: '0 0 2rem 0',
-    [theme.breakpoints.up('sm')]: {
-      flexDirection: 'row',
-      margin: '0 0 2rem 0'
-    }
-  },
-  'input-group__item': {
-    margin: '0 0 0.75rem 0',
-    [theme.breakpoints.up('sm')]: {
-      margin: '0 0.75rem 0 0'
-    }
-  }
-})
+import postListFiltersStyle from '../assets/postListFiltersStyle'
 
 export class BlogListFilters extends Component {
   onTextChange = e => {
@@ -71,4 +54,4 @@ const mapDispatchToProps = dispatch => ({
   sortByTitle: () => dispatch(sortByTitle())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BlogListFilters))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(postListFiltersStyle)(BlogListFilters))

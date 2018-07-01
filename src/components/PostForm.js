@@ -7,19 +7,7 @@ import moment from 'moment'
 
 import { TextField, Button, Typography, Grow } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-
-const styles = theme => ({
-  form: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  'form__text-field': {
-    margin: `0 0 ${theme.spacing.medium} 0`
-  },
-  'form__button': {
-    margin: `0 0 ${theme.spacing.medium} 0`
-  }
-})
+import postFormStyle from '../assets/postFormStyle'
 
 export class PostForm extends Component {
   state = {
@@ -130,4 +118,4 @@ const mapDispatchToProps = dispatch => ({
   startDeletePost: id => dispatch(startDeletePost(id))
 })
 
-export default connect(undefined, mapDispatchToProps)(withStyles(styles)(PostForm))
+export default connect(undefined, mapDispatchToProps)(withStyles(postFormStyle)(PostForm))

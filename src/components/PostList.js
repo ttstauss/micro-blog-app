@@ -6,19 +6,7 @@ import FlipMove from 'react-flip-move'
 
 import { Card, CardContent, Typography, Fade } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-
-const styles = theme => ({
-  'list-item__body': {
-    display: 'flex',
-    justifyContent: 'center',
-    '&:last-child': {
-      paddingBottom: theme.spacing.medium
-    }
-  },
-  message: {
-    color: theme.palette.grey['600']
-  }
-})
+import postListStyle from '../assets/postListStyle'
 
 export const BlogList = ({ classes, posts }) => {
   return (
@@ -49,4 +37,4 @@ const mapStateToProps = state => ({
   posts: selectPosts(state.posts, state.filters)
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(BlogList))
+export default connect(mapStateToProps)(withStyles(postListStyle)(BlogList))

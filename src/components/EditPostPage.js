@@ -6,26 +6,7 @@ import { startEditPost } from '../actions/posts'
 
 import { Typography, Fade } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-
-const styles = theme => ({
-  'content-container': {
-    margin: '0 auto',
-    maxWidth: '80rem',
-    padding: `0 ${theme.spacing.medium}`
-  },
-  link: {
-    transition: 'color .3s ease',
-    '&:hover': {
-      color: 'rgba(63, 81, 181, 1)'
-    }
-  },
-  'link__text': {
-    transition: 'color .3s ease',
-    '&:hover': {
-      color: 'rgba(63, 81, 181, 1)'
-    }
-  }
-})
+import editPostPageStyle from '../assets/editPostPageStyle'
 
 export class EditPostPage extends Component {
   onSubmit = updates => {
@@ -69,4 +50,4 @@ const mapDispatchToProps = dispatch => ({
   startEditPost: (id, updates) => dispatch(startEditPost(id, updates))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditPostPage))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(editPostPageStyle)(EditPostPage))

@@ -4,28 +4,8 @@ import moment from 'moment'
 
 import { withStyles } from '@material-ui/core/styles'
 import { Typography, Card, CardContent, Fade } from '@material-ui/core'
+import postStyle from '../assets/postStyle'
 
-const styles = theme => {
-  return ({
-  'content-container': {
-    margin: '0 auto',
-    maxWidth: '80rem',
-    padding: `0 ${theme.spacing.medium}`
-  },
-  post: {
-    margin: `${theme.spacing.medium} 0`
-  },
-  'post__caption': {
-    marginBottom: `${theme.spacing.large}`
-  },
-  'post__body': {
-    ...theme.typography,
-    '& img': {
-      maxWidth: '100%'
-    }
-  }
-})
-}
 export class Post extends Component {
   getRawMarkup() {
     const md = new Remarkable
@@ -49,4 +29,4 @@ export class Post extends Component {
   }
 }
 
-export default withStyles(styles)(Post)
+export default withStyles(postStyle)(Post)

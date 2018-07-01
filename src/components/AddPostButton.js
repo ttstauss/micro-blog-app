@@ -3,14 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-
-const styles = {
-  'button-container': {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: '0 0 2rem 0'
-  }
-}
+import addPostButtonStyle from '../assets/addPostButtonStyle'
 
 export const AddPostButton = ({ classes }) => {
   return (
@@ -24,4 +17,4 @@ export const AddPostButton = ({ classes }) => {
   )
 }
 
-export default withStyles(styles)(AddPostButton)
+export default withStyles(addPostButtonStyle)(AddPostButton)
