@@ -45,7 +45,8 @@ export class LoginPage extends Component {
     if (!this.state.email || !this.state.password) {
       this.setState(() => ({
         emailError: !this.state.email && 'Please provide an email',
-        passwordError: !this.state.password && 'Please provide a password'
+        passwordError: !this.state.password && 'Please provide a password',
+        userOrPasswordError: undefined
       }))
     } else {
       this.setState(() => ({ error: '' }))
@@ -61,7 +62,7 @@ export class LoginPage extends Component {
             }
             if (error.code === 'auth/user-not-found') {
               this.setState(() => ({
-                userOrPasswordError: 'Email or password is incorrect',
+                userOrPasswordError: 'The email you\'ve entered doesn\'t match any account',
                 emailError: undefined,
                 passwordError: undefined
               }))
